@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>b</title>
+<link href="b.css" rel="stylesheet" type="text/css"/> 
+<script type="text/javascript" src="b.js"></script>
+<script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="restapi.js"></script>
+<script type="text/javascript" src="highcharts.js"></script>
+<script type="text/javascript" src="chart.js"></script>
+<script type="text/javascript" src="excanvas.compiled.js"></script>
+</head>
+
+<body onload="load();">
+    <!-- 第一个界面：警告框 -->
+	<div id="warningframe">
+            <!-- 警告框1：列表、进入按钮 --> 
+            <div id="warningframe_list">
+				<div id="warningframe_floor1" onclick="showMap(1,0)" ></div>
+				<div id="warningframe_floor2" onclick="showMap(2,0)" ></div>				
+				
+				<!-- <div id="warningcloselist" onclick="closeWarningFrame()"></div> -->
+			</div>
+			
+			<!-- 警告框2：地图、返回按钮 -->
+			<div id="map">
+				
+				<div id="floormap1">
+				<div id="sensorselect1"></div>
+				</div>
+				<div id="floormap2">
+				<div id="sensorselect2"></div>
+				</div>
+				<div id="floorinfo"></div>
+				<div id="floorword"></div>
+				<div id="historychart_btn" onclick="showchart()"></div>
+				
+				<div id="next_floor_wx" onclick="nextFloor()"></div>
+				<div id="next_floor" onclick="nextFloor()"></div>
+				
+				<div id="front_floor_wx" onclick="frontFloor()"></div>
+				<div id="front_floor" onclick="frontFloor()"></div>
+				
+				<div id="mapclose" onclick="backFromMap()"></div>		
+			</div>
+			
+			<!-- 警告框3：关闭警告框按钮-->
+            <div id="warningclose" onclick="closeWarningFrame()">
+			</div>				
+	 </div>
+	 
+	  <!-- 第二个界面: 导航栏-->
+	 <div id="guidemain">
+ 			<!-- 导航：预告警详情-->
+			<div id="guidewarnlist_wx" onclick="showWarningList()">
+			</div>
+			<div id="guidewarnlist" onclick="showWarningList()">
+			</div>		
+			<!-- 导航：所有温度详情-->		
+			<div id="guidefloorlist_wx" onclick="showFloorList()">
+			</div>
+			<div id="guidefloorlist" onclick="showFloorList()">
+			</div>
+			<!-- 导航：设置详情-->
+			<div id="setting_wx" onclick="showSetList()">
+			</div>
+			<div id="setting" onclick="showSetList()">
+			</div>
+	 </div>
+	 
+	  <!-- 第三个界面: 预告警详情-->
+	 <div id="warninglist">
+ 			<!-- 楼层一-->
+			<div id="warnlist_floor1" >
+				<div id="warninglist_info1" onclick="showMap(1,1)"></div>
+				<div id="warninglist_word1"></div>
+				<div id="sectioner"></div>
+				<div id="warninglist_info2" onclick="showMap(2,1)"></div>
+				<div id="warninglist_word2"></div>
+			</div>		
+			
+			<!-- 楼层二-->		
+			<div id="warninglist_floor2" >
+				
+			</div>
+			<!-- 返回按钮-->
+			<div id="warninglist_backbutton" onclick="backFromWarningList()">
+			</div>
+	 </div>
+	
+	<!-- 第四个界面: 所有温度详情-->
+	 <div id="floorlist">
+ 			<!-- 楼层一-->
+			<div id="floorlist_floor1" >
+				<div id="floorlist_info1" onclick="showMap(1,2)"></div>
+				<div id="floorlist_enter1" onclick="showMap(1,2)"></div>
+			</div>		
+			<!-- 楼层二-->		
+			<div id="floorlist_floor2" >
+				<div id="floorlist_info2" onclick="showMap(2,2)"></div>
+				<div id="floorlist_enter2" onclick="showMap(2,2)"></div>
+			</div>
+			<!-- 楼层三-->		
+			<div id="floorlist_floor3" >
+				<div id="floorlist_info3"></div>
+				<div id="floorlist_enter3"></div>
+			</div>
+			<!-- 返回按钮-->
+			<div id="floorlist_backbutton" onclick="backFromFloorList()">
+			</div>
+	 </div>
+	<!-- 第五个界面: 温度曲线-->
+	 <div id="historychart">
+	 <div id="charttext"></div>
+	 <div id="chart"></div>
+	    <div id="backtomap" onclick="backtomap()"></div>
+	    <div id="redraw" onclick="redraw()"></div>
+	 
+	 
+	 </div>
+	 <!-- 第六个界面: 设置页面-->
+	 <div id="setlist">
+ 		<div id="seting" >	
+	<div id="settemperature">
+	  <div id="img_temp_dis"><!--  显示温度	-->
+<!--	    <img src="images/temp_dis.png"/>	   -->
+	  </div>
+	<img src="img/stock_but_dec_normal.png" id="img_dec_normal" onclick="dec();"/>
+	<img src="img/stock_but_add_normal.png" id="img_add_normal" onclick="add();"/>
+	<img src="img/stock_but_dec_hl.png" id="img_dec_h"  style="display:none"/>
+	<img src="img/stock_but_add_hl.png" id="img_add_h"  style="display:none"/>
+	
+	</div>
+	<div id="table_set">
+	   <div id="alarm_0" class="alarm" onclick="setAlarm(0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;报警声1</div>
+	   <div id="alarm_1" class="alarm" onclick="setAlarm(1);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;报警声2</div>
+	   <div id="alarm_2" class="alarm" onclick="setAlarm(2);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;报警声3</div>
+	   <div id="alarm_3" class="alarm" onclick="setAlarm(3);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;报警声4</div>	
+		
+	</div>
+	
+	<img src="img/ok.png" id="img_OK"  onclick="saveSeting();"/>	
+	<img src="img/back.png" id="img_BACK"  onclick="BackSeting();"/>
+</div>	
+	 </div>
+	
+</body>
+
+</html>

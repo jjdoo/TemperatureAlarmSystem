@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.jil.org/ns/widgets"
+        id="5de9fe39-4f34-4c44-8813-8e8aa9dab4bb"
+        version="01.00.beta"
+        height="700"
+        width="480">
+    <name>sensor system</name>
+    <description>This is my first Widget.</description>
+    <content src="b.html" />
+    <icon src="Icon.png" />
+    <author email="myname@host">jjdoo</author>
+    <license href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache v2</license>
+     <feature name="http://jil.org/jil/api/1.1/xmlHttpRequest"/>
+    <access network="true" localfs="true" remote_scripts="false"/>
+    <update href="http://www.jil.org/widgets/" period="2"/>
+    <maximum_display_mode height="700" width="480"/>
+    <billing required="false"/>
+</widget>
